@@ -1,3 +1,58 @@
-body#body {
-    background-color: rgb(240, 57, 57);
+body {
+    width: 80%;
+    margin: 0 auto!important;
+    font-family: 'Open Sans', sans-serif!important;
+    background-color: #f4f4f4!important;
 }
+
+/**** Charte graphique ****/
+.border-step-cart {
+    border: 1px solid;
+}
+.back-green {
+    background-color: #37a041!important;
+}
+
+.border-green {
+    border-color: #37a041 !important;
+}
+
+.text-green {
+    color: #37a041;
+}
+
+.back-dark-green {
+    background-color: #38573b!important;
+}
+/**** largeur ****/
+.image-produit {
+    height: 100px;
+}
+
+.input-valid {
+    width: 40%!important;
+}
+
+.input-code-promo {
+    width: 55%!important;
+}
+.mes-produits {
+    width: 62%!important;
+}
+
+.recap {
+    width: 33%;
+}
+
+.produit {
+    width: 100%;
+}
+
+.info-icone {
+    height: 17px;
+}
+
+.payments-img {
+    height: 25px;
+}
+
