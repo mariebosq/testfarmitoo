@@ -30,6 +30,7 @@
                 <div class="d-lg-flex justify-content-between">
                         <section class="mes-produits">
                                 <h1 class="mb-3 fw-bold fs-2">Mes articles</h1>
+                                {% for product in products %}
                                 <div class="shadow p-3 mb-3 bg-body rounded">
                                         <div id="mes-articles" class="d-flex align-items-center">
                                                 <div class="mx-4 product-img">
@@ -37,10 +38,10 @@
                                                 </div>
                                                 <div class="produit ms-3">
                                                         <div class="d-sm-flex justify-content-between lh-1">
-                                                                <p class="mb-1 fw-bold">Vis à tête marteau 10 x 48</p>
-                                                                <p class="mb-sm-0 text-green fs-4 fw-bold mx-sm-4">1,60 € HT</p>
+                                                                <p class="mb-1 fw-bold">{{ product.title }}</p>
+                                                                <p class="mb-sm-0 text-green fs-4 fw-bold mx-sm-4"><span class="price-item">{{ product.price }}</span> € HT</p>
                                                         </div>
-                                                        <p class="mb-0 lh-1">ORGATOP</p>
+                                                        <p class="mb-0 lh-1">{{ product.brand }}</p>
                                                         <p><small>Référence : 27029</small></p>
                                                         <p class="fw-bold">Quantité</p>
                                                         <fieldset data-quantity>
@@ -48,7 +49,7 @@
                                                         </fieldset>
                                                     
 
-                                                        <p class="text-end mt-4"><a href="#" class="text-dark mx-4">Supprimer</a></p>
+                                                        <p class="text-end mt-4"><a href="#" class="text-dark mx-4 delete-button">Supprimer</a></p>
 
                                                 </div>
                                         </div>
@@ -57,6 +58,7 @@
                                                 <p class="mb-1">Frais de port : <span class="fw-bold">7,48 €</span> <img src="{{ asset('build/images/info.svg') }}" alt="Icône info" class="info-icone mb-1"></p>
                                         </div>
                                 </div>
+                                {% endfor %}
                                 
                                 <div class="shadow p-3 mb-5 bg-body rounded">
                                         <p class="mb-1">
@@ -103,13 +105,13 @@
                                 <h1 class="mb-3 fw-bold fs-2">Récapitulatif</h1>
                                 <div class="shadow p-3 mb-5 bg-body rounded">
                                         <p class="mb-0">Un code promo ?</p>
-                                        <form action="" class="d-sm-flex justify-content-between">
+                                        <form action="{{ path('index') }}" class="d-sm-flex justify-content-between">
                                                 <input type="text" id="codepromo" name="codepromo" value="Ex: FARMITOO25" class="form-control rounded-pill p-3 input-code-promo"><br>
                                                 <input type="submit" value="Valider" class="btn border-step-cart back-dark-green text-white rounded-pill px-4 py-2 input-valid fw-bold">
                                         </form> 
                                         <div class="d-flex border-top mt-3 pt-3 justify-content-between">
                                                 <p>Sous total HT</p>
-                                                <p>1,60€ </p>
+                                                <p><span id="total-HT"></span> €</p>
                                         </div> 
                                         <div class="d-flex border-top pt-3 justify-content-between">
                                                 <p>Frais de port HT <img src="{{ asset('build/images/info.svg') }}" alt="Icône info" class="info-icone mb-1"></p>
@@ -121,7 +123,7 @@
                                         </div>
                                         <div class="d-flex justify-content-between">
                                                 <p class="mb-1">TVA</p>
-                                                <p class="mb-1">1,82€ </p>
+                                                <p class="mb-1"><span id="totalTVA"><span> €</p>
                                         </div> 
                                         <div class="d-flex justify-content-between fs-5 fw-bold">
                                                 <p>Total TTC</p>
