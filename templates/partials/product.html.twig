@@ -1,0 +1,26 @@
+<div class="shadow p-3 mb-3 bg-body rounded">
+    <div id="mes-articles" class="d-flex align-items-center">
+            <div class="mx-4 product-img">
+                    <img src="{{ asset('build/images/visatete.jpg') }}" alt="Vis à tête marteau 10 x 48" class="image-produit">
+            </div>
+            <div class="produit ms-3">
+                    <div class="d-sm-flex justify-content-between lh-1">
+                            <p class="mb-1 fw-bold">{{ product.title }}</p>
+                            <p class="mb-sm-0 text-green fs-4 fw-bold mx-sm-4"><span class="price-item">{{ product.price }}</span> € HT</p>
+                    </div>
+                    <p class="mb-0 lh-1">{{ product.brand }}</p>
+                    <p><small>Référence : 27029</small></p>
+                    <p class="fw-bold">Quantité</p>
+                    <fieldset data-quantity>
+                            
+                    </fieldset>
+                
+                    <p class="text-end mt-4"><a href="#" class="text-dark mx-4 delete-button">Supprimer</a></p>
+
+            </div>
+    </div>
+    <div class="d-md-flex justify-content-between pt-4 mx-4 border-top">
+            <p>Livraison estimée le <span class="fw-bold">lundi 18 avril 2022</span></p>
+            <p class="mb-1">Frais de port : <span class="fw-bold">7,48 €</span> <img src="{{ asset('build/images/info.svg') }}" alt="Icône info" class="info-icone mb-1"></p>
+    </div>
+</div>
