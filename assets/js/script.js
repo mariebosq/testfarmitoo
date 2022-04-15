@@ -30,6 +30,27 @@ document.getElementById("totalTVA").textContent = totalTVA;
 
 //Calcul frais de port HT
 
+//Calcul promotion
+let btnValider = document.getElementById("valider");
+
+btnValider.addEventListener('click', function(event) {
+  event.preventDefault();
+  
+  let minAmount = document.getElementById("minAmount").value;
+  let reduction = document.getElementById("reduction").value;
+  let freeDelivery = document.getElementById("freeDelivery").value;
+  let totalHT = document.getElementById("total-HT").textContent;
+  
+  if (minAmount > totalHT) {
+    sum = (reduction*totalHT)/100;
+    document.getElementById("total-HT").textContent = sum;
+    if (freeDelivery) {
+      document.getElementById("delivery-HT").textContent = 0;
+    }
+  }
+
+
+})
 
 //Delete button
 let deleteBtn = document.getElementsByClassName('delete-button')
@@ -46,7 +67,8 @@ for (let i = 0; i < deleteBtn.length; i++) {
       document.getElementById("total-HT").textContent = sum;
       //mise à jour de la TVA total
       totalTVA = (sum/100)*TVA;
-      document.getElementById("totalTVA").textContent = totalTVA;
+      document.getElementById("totalTVA").textContent = totalTVA; 
+      //mise à jour du code promo
   })
 document.getElementById("total-HT").textContent = sum;
 }

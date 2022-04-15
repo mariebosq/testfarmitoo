@@ -22,6 +22,10 @@ class MainController extends AbstractController
         // Nettoyant pour cuve x3
         // Piquet de clôture x5
 
-        return $this->render('cart/cart.html.twig');
+        return $this->render('cart/cart.html.twig', [
+            'products' => [$product1, $product2, $product3],
+            'promotion' => $promotion1
+            //'form' => $form->createView()
+        ]);
     }
 }
