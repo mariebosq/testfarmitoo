@@ -51,7 +51,7 @@ class Promotion
     }
 
      /**
-     * @return int
+     * @return bool
      */
     public function getfreeDelivery(): bool
     {
