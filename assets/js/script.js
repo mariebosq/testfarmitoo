@@ -1,5 +1,5 @@
 import QuantityInput from './quantity.js';
-
+import { TVA, SHIPPING_PRICE } from './const.js';
 // Set up quantity forms
 (function(){
   let quantities = document.querySelectorAll('[data-quantity]');
@@ -30,7 +30,7 @@ let quantityProducts = 0;
 let priceDelivery = 0;
 let totalHT = 0;
 let countClick = 0;
-
+import { updateTVA, updateTotalHT, updateTotalTTC, updatePriceDelivery } from './utils.js';
 
 //Calcul total price HT
 for (let i = 0; i < priceItem.length; i++) {
@@ -38,28 +38,19 @@ for (let i = 0; i < priceItem.length; i++) {
   sum += price;
 }
 
-
 //Calcul TVA
-let TVA = 20;
 let TT = sum += priceDelivery;
 let totalTVA = (TT/100)*TVA;
 totalTextTVA.textContent = totalTVA;
-
 
 //Calcul frais de port HT
 for (let i = 0; i < allQuantities.length; i++) {
   let valueQuantity = parseInt(allQuantities[i].value);
   quantityProducts += valueQuantity
 }
-
-if (quantityProducts <= 3) {
-  priceDelivery = 20;
-  deliveryHT.textContent = priceDelivery;
-} else {
-    priceDelivery += 20;
-    deliveryHT.textContent = priceDelivery;
-  } 
-
+const shipping = quantityProducts / 3;
+priceDelivery = Math.ceil(shipping) * SHIPPING_PRICE;
+deliveryHT.textContent = priceDelivery;
 
 //Calcul promotion
 btnValider.addEventListener('click', function(event) {
@@ -77,11 +68,11 @@ btnValider.addEventListener('click', function(event) {
       sum = sousTotalHT - pourcentage;
       totalTextHT.textContent = sum;
       //mise à jour de la TVA total
-      updateTVA() 
+      updateTVA(sum, totalTextTVA, TVA) 
       //mise à hour du prix total HT 
-      updateTotalHT()
+      updateTotalHT(priceDelivery, sum, total)
       //mise à hour du prix total TTC 
-      updateTotalTTC()
+      updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
       if (freeDelivery) {
         deliveryHT.textContent = 0;
       }
@@ -102,12 +93,13 @@ for (let i = 0; i < deleteBtn.length; i++) {
       sum = sum - priceInt;
       totalTextHT.textContent = sum;
       //mise à jour de la TVA total
-      updateTVA() 
+      updateTVA(sum, totalTextTVA, TVA) 
       //mise à hour du prix total HT 
-      updateTotalHT()
+      updateTotalHT(priceDelivery, sum, total)
       //mise à hour du prix total TTC 
-      updateTotalTTC()
-      //mise à jour du code promo
+      updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
+      //mise à jour du prix de livraison
+      updatePriceDelivery(allQuantities, priceDelivery, SHIPPING_PRICE, deliveryHT)
   });
   totalTextHT.textContent = sum;
 }
@@ -135,12 +127,14 @@ for (let i = 0; i < addBtn.length; i++) {
     sum = sum + priceInt;
     totalTextHT.textContent = sum;
     //mise à jour de la TVA total
-    updateTVA()
-    //mise à hour du prix total HT 
-    updateTotalHT()
-    //mise à hour du prix total TTC 
-    updateTotalTTC()
+    updateTVA(sum, totalTextTVA, TVA)
+    //mise à jour du prix total HT 
+    updateTotalHT(priceDelivery, sum, total)
+    //mise à jour du prix total TTC 
+    updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
     //mise à jour des frais de port
+    updatePriceDelivery(allQuantities, priceDelivery, SHIPPING_PRICE, deliveryHT)
+
   })
 }
 
@@ -156,25 +150,13 @@ for (let i = 0; i < subBtn.length; i++) {
     sum = sum - priceInt;
     totalTextHT.textContent = sum;
     //mise à jour de la TVA total
-    updateTVA() 
+    updateTVA(sum, totalTextTVA, TVA) 
     //mise à hour du prix total HT 
-    updateTotalHT()
+    updateTotalHT(priceDelivery, sum, total)
     //mise à hour du prix total TTC 
-    updateTotalTTC()
-    //récupération de la quantité de ce produit
-    let productQuantity = event.target.parentNode.children[1].value;
+    updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
+    //mise à jour des frais de port
+    updatePriceDelivery(allQuantities, priceDelivery, SHIPPING_PRICE, deliveryHT)
+    
   })
-}
-//fonctions
-function updateTVA() {
-  totalTVA = (sum/100)*TVA;
-  totalTextTVA.textContent = totalTVA;
-} 
-function updateTotalHT() {
-  totalHT = priceDelivery + sum;
-  total.textContent = totalHT;
-}
-function updateTotalTTC() {
-  calculTotal = totalHT + totalTVA;
-  totalTTC.textContent = calculTotal;
 }
