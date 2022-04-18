@@ -32,7 +32,6 @@ class Promotion
         $this->reduction = $reduction;
         $this->freeDelivery = $freeDelivery;
     }
-
     
     /**
      * @return int

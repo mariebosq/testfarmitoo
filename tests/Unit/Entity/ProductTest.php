@@ -15,4 +15,16 @@ class ProductTest extends TestCase
 
         $this->assertSame('Cuve à gasoil', $product->getTitle());
     }
+    public function testGetPrice()
+    {
+        $product = new Product('Cuve à gasoil', 100, 'Farmitoo');
+
+        $this->assertSame(100, $product->getPrice());
+    }
+    public function testGetBrand()
+    {
+        $product = new Product('Cuve à gasoil', 100, 'Farmitoo');
+
+        $this->assertSame('Farmitoo', $product->getBrand());
+    }
 }
