@@ -24,7 +24,8 @@ body {
 .back-dark-green {
     background-color: #38573b!important;
 }
-/**** largeur ****/
+
+/**** Largeurs ****/
 .image-produit {
     height: 100px;
 }
@@ -56,6 +57,7 @@ body {
     height: 25px;
 }
 
+/**** Responsiv ****/
 @media screen and (max-width: 1340px) {
     #mes-articles {
       display: block !important;

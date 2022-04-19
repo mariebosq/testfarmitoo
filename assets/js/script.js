@@ -1,18 +1,7 @@
 import QuantityInput from './quantity.js';
 import { TVA, SHIPPING_PRICE } from './const.js';
-// Set up quantity forms
-(function(){
-  let quantities = document.querySelectorAll('[data-quantity]');
+import { updateTVA, updateTotalHT, updateTotalTTC, updatePriceDelivery } from './utils.js';
 
-  if (quantities instanceof Node) quantities = [quantities];
-  if (quantities instanceof NodeList) quantities = [].slice.call(quantities);
-  if (quantities instanceof Array) {
-    quantities.forEach(div => (div.quantity = new QuantityInput(div, 'Down', 'Up')));
-  }
-})();
-
-//Update price
-//var input = document.getElementById("in").value;
 let priceItem = document.getElementsByClassName('price-item');
 let totalTextTVA = document.getElementById("totalTVA");
 let deleteBtn = document.getElementsByClassName('delete-button');
@@ -30,7 +19,17 @@ let quantityProducts = 0;
 let priceDelivery = 0;
 let totalHT = 0;
 let countClick = 0;
-import { updateTVA, updateTotalHT, updateTotalTTC, updatePriceDelivery } from './utils.js';
+
+// Set up quantity forms
+(function(){
+  let quantities = document.querySelectorAll('[data-quantity]');
+
+  if (quantities instanceof Node) quantities = [quantities];
+  if (quantities instanceof NodeList) quantities = [].slice.call(quantities);
+  if (quantities instanceof Array) {
+    quantities.forEach(div => (div.quantity = new QuantityInput(div, 'Down', 'Up')));
+  }
+})();
 
 //Calcul total price HT
 for (let i = 0; i < priceItem.length; i++) {
@@ -57,7 +56,6 @@ btnValider.addEventListener('click', function(event) {
   event.preventDefault();
   //possibilité de rentrer qu'un code promo
   if(countClick++ < 1) {
-
     let minAmount = document.getElementById("minAmount").value;
     let reduction = document.getElementById("reduction").value;
     let freeDelivery = document.getElementById("freeDelivery").value;
@@ -68,11 +66,12 @@ btnValider.addEventListener('click', function(event) {
       sum = sousTotalHT - pourcentage;
       totalTextHT.textContent = sum;
       //mise à jour de la TVA total
-      updateTVA(sum, totalTextTVA, TVA) 
+      updateTVA(sum, totalTextTVA) 
       //mise à hour du prix total HT 
       updateTotalHT(priceDelivery, sum, total)
       //mise à hour du prix total TTC 
       updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
+      //si freeDelivery est à true alors appliquer 0 euro de frai de port
       if (freeDelivery) {
         deliveryHT.textContent = 0;
       }
@@ -81,41 +80,41 @@ btnValider.addEventListener('click', function(event) {
 
 })
 
-//Delete button
+//Bouton supprimer
 for (let i = 0; i < deleteBtn.length; i++) {
   deleteBtn[i].addEventListener('click', function(event) {
+      let quantityProduct = this.parentNode.parentNode.children[4].children[1].value;
       //suppression du produit
       this.parentNode.parentNode.parentNode.parentNode.remove();
       //mise à jour du sous prix total HT
       let priceHT = this.parentNode.parentNode.children[0].children[1].textContent;
       let splitPrice = priceHT.split(' ');
       priceInt = parseInt(splitPrice[0]);
-      sum = sum - priceInt;
+      sum = sum - (priceInt*quantityProduct);
       totalTextHT.textContent = sum;
       //mise à jour de la TVA total
-      updateTVA(sum, totalTextTVA, TVA) 
+      updateTVA(sum, totalTextTVA) 
       //mise à hour du prix total HT 
       updateTotalHT(priceDelivery, sum, total)
       //mise à hour du prix total TTC 
       updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
       //mise à jour du prix de livraison
-      updatePriceDelivery(allQuantities, priceDelivery, SHIPPING_PRICE, deliveryHT)
+      updatePriceDelivery(allQuantities, priceDelivery, deliveryHT)
   });
   totalTextHT.textContent = sum;
 }
 
-// Total HT
+// Calcul total HT
 let contentHT = totalTextHT.textContent;
 let convertPrice = parseInt(contentHT);
 totalHT = priceDelivery + convertPrice;
 total.textContent = totalHT;
 
-// Total TTC
+// Calcul total TTC
 let calculTotal = totalHT + totalTVA;
 totalTTC.textContent = calculTotal;
 
-
-//Gestion quantité
+//Gestion quantités
 //Ajout d'une quantité
 for (let i = 0; i < addBtn.length; i++) {
   addBtn[i].addEventListener('click', function(event) {
@@ -127,14 +126,13 @@ for (let i = 0; i < addBtn.length; i++) {
     sum = sum + priceInt;
     totalTextHT.textContent = sum;
     //mise à jour de la TVA total
-    updateTVA(sum, totalTextTVA, TVA)
+    updateTVA(sum, totalTextTVA)
     //mise à jour du prix total HT 
     updateTotalHT(priceDelivery, sum, total)
     //mise à jour du prix total TTC 
     updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
     //mise à jour des frais de port
-    updatePriceDelivery(allQuantities, priceDelivery, SHIPPING_PRICE, deliveryHT)
-
+    updatePriceDelivery(allQuantities, priceDelivery, deliveryHT)
   })
 }
 
@@ -150,13 +148,12 @@ for (let i = 0; i < subBtn.length; i++) {
     sum = sum - priceInt;
     totalTextHT.textContent = sum;
     //mise à jour de la TVA total
-    updateTVA(sum, totalTextTVA, TVA) 
+    updateTVA(sum, totalTextTVA) 
     //mise à hour du prix total HT 
     updateTotalHT(priceDelivery, sum, total)
     //mise à hour du prix total TTC 
     updateTotalTTC(totalTextHT, totalTextTVA, totalTTC)
     //mise à jour des frais de port
-    updatePriceDelivery(allQuantities, priceDelivery, SHIPPING_PRICE, deliveryHT)
-    
+    updatePriceDelivery(allQuantities, priceDelivery, deliveryHT)
   })
 }
