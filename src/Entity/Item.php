@@ -17,20 +17,20 @@ class Item
     protected $quantity;
 
     /**
-     * @param string $product
+     * @param Product $product
      * @param int $quantity
      */
 
-    public function __construct(string $product, int $quantity)
+    public function __construct(Product $product, int $quantity)
     {
         $this->product = $product;
         $this->quantity = $quantity;
     }
 
     /**
-     * @return string
+     * @return Product
      */
-    public function getProduct(): string
+    public function getProduct(): Product
     {
         return $this->product;
     }

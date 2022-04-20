@@ -5,19 +5,22 @@ namespace App\Tests\Unit\Entity;
 
 
 use App\Entity\Item;
+use App\Entity\Product;
 use PHPUnit\Framework\TestCase;
 
 class ItemTest extends TestCase
 {
     public function testGetProduct()
     {
-        $item = new Item('Cuve à gasoil', 1);
+        $product = new Product('Cuve à gasoil', 100, 'Farmitoo');
+        $item = new Item($product, 1);
 
-        $this->assertSame('Cuve à gasoil', $item->getProduct());
+        $this->assertSame($product, $item->getProduct());
     }
     public function testGetQuantity()
     {
-        $item = new Item('Cuve à gasoil', 3);
+        $product = new Product('Cuve à gasoil', 100, 'Farmitoo');
+        $item = new Item($product, 3);
 
         $this->assertSame(3, $item->getQuantity());
     }
