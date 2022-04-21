@@ -1,0 +1,19 @@
+{% extends 'base.html.twig' %}
+
+{% block title %}Ma commande{% endblock %}
+
+{% block body %}
+<div class="card">
+  <div class="card-body">
+  {% for item in order.items %}
+   <p class='m-0'>Nom du produit : {{ item.product.title }} </p>
+   <p class='m-0'>Quantité : {{ item.quantity }}</p>
+   <p>Total : </p>
+  {% endfor %}
+   <p>Total TTC</p>
+  </div>
+</div>
+<div>{{ form(form) }}
+</div>
+{% include 'partials/infos.html.twig' %}
+{% endblock %}

@@ -1,3 +1,11 @@
 index:
     path: /
     controller: App\Controller\MainController::index
+
+order:
+    path: /order
+    controller: App\Controller\OrderController::order
+
+validation:
+    path: /validation
+    controller: App\Controller\OrderController::order

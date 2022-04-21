@@ -29,7 +29,7 @@ class AppFixtures
 
     public function loadItems() {
 
-        $products = $this->loadProducts;
+        $products = $this->loadProducts();
 
         $item1 = new Item($products[0], 1);
         $item2 = new Item($products[1], 3);
@@ -41,8 +41,8 @@ class AppFixtures
     }
 
     public function loadOrder() {
-
-        $items = $this->loadItems;
+   
+        $items = $this->loadItems();
         
         $order = new Order($items);
 

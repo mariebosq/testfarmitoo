@@ -1,3 +1,37 @@
 <header>
-
+     <nav>
+            <ul class="d-sm-flex flex-wrap my-4 fw-bold fe-5">
+                    <li class="text-decoration-none d-flex align-items-center me-5 pe-5">
+                        {% if app.request.attributes.get('_route') == "index" %}
+                            <p class="border rounded-circle border-green px-4 py-3 me-2 back-green text-white">
+                        {% else %}
+                            <p class="border-step-cart rounded-circle border-green px-4 py-3 me-2">
+                        {% endif %}
+                            1</p>
+                            <p>Panier</p> 
+                    </li>
+                    <li class="text-decoration-none d-flex align-items-center me-4 pe-4">
+                            {% if app.request.attributes.get('_route') == "order" %}
+                                <p class="border rounded-circle border-green px-4 py-3 me-2 back-green text-white">
+                            {% else %}
+                                <p class="border-step-cart rounded-circle border-green px-4 py-3 me-2">
+                            {% endif %}
+                                2 </p>
+                            <p>Coordonnées</p> 
+                    </li>
+                    <li class="text-decoration-none d-flex align-items-center me-lg-5 me-4 pe-5">
+                            <p class="border-step-cart rounded-circle border-green px-4 py-3 me-2">3</p>
+                            <p>Paiement</p> 
+                    </li>
+                    <li class="text-decoration-none d-flex align-items-center">
+                            {% if app.request.attributes.get('_route') == "validation" %}
+                            <p class="border rounded-circle border-green px-4 py-3 me-2 back-green text-white">
+                            {% else %}
+                                <p class="border-step-cart rounded-circle border-green px-4 py-3 me-2">
+                            {% endif %}
+                                4</p>
+                            <p>Validation</p> 
+                    </li>
+            </ul>
+        </nav>
 </header>
