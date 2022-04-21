@@ -3,6 +3,7 @@
 namespace App\Form;
 
 use App\Entity\Contact;
+use App\Form\PostalAddressType;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\EmailType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
@@ -20,9 +21,8 @@ class OrderType extends AbstractType
                 'mapped' => false,
                 'attr' => ['class' => 'form-control']
             ))
-            ->add('Adresse', TextType::class, array(
-                'mapped' => false,
-                'attr' => ['class' => 'form-control']
+            ->add('Adresse', PostalAddressType::class, array(
+                'mapped' => false
             ))
             ->add('E-mail', EmailType::class, array(
                 'mapped' => false,
@@ -34,5 +34,10 @@ class OrderType extends AbstractType
         ;
     }
 
-   
+    public function configureOptions(OptionsResolver $resolver): void
+    {
+        $resolver->setDefaults([
+            'data_class' => Contact::class,
+        ]);
+    }
 }
