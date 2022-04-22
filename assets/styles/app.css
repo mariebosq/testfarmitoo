@@ -34,9 +34,14 @@ body {
     width: 40%!important;
 }
 
+.valid-card {
+    width: 45%;
+}
+
 .input-code-promo {
     width: 55%!important;
 }
+
 .mes-produits {
     width: 62%!important;
 }
@@ -69,7 +74,7 @@ body {
   }
 
 @media screen and (max-width: 992px) {
-    .mes-produits, .recap {
+    .mes-produits, .recap, .valid-card {
         width: 100%!important;
     }
 }
